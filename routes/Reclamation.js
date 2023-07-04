@@ -6,6 +6,26 @@ const Type = require("../models/type")
 
 const { MongoClient ,ObjectId  } = require('mongodb');
 
+
+
+
+////get reclamation by id 
+
+router.get("/reclamation/:id", async (req, res) => {
+  try {
+    const reclamationId = req.params.id;
+    const Reclamation = await reclamation.findById(reclamationId);
+
+    if (!Reclamation) {
+      return res.status(404).json({ message: "Reclamation not found." });
+    }
+
+    res.send(Reclamation);
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+});
+
    /*********************************************Get all recalamtions */
 
    router.get("/allreclamation",async(req,res)=>{
@@ -20,8 +40,7 @@ const { MongoClient ,ObjectId  } = require('mongodb');
     
 
       /********************************************Move and deleted */
-
-      router.post('/moveData/:id', async (req, res) => {
+      router.delete('/moveData/:id', async (req, res) => {
         const sourceCollectionName = 'reclamations';
         const targetCollectionName = 'Delete';
       
@@ -66,6 +85,7 @@ const { MongoClient ,ObjectId  } = require('mongodb');
           await client.close();
         }
       });
+      
 /***************************************End of the FUN */
 
 
@@ -83,7 +103,7 @@ router.post("/reclamer", async (req, res) => {
     }
 
     const reclamations = new reclamation({
-      type: joinedType,
+      type: joinedType.type,
       titre,
       Description,
       fileData,

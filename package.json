@@ -1,5 +1,13 @@
 {
   
+    "name": "haythem-3eryen",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "nodemon server.js"
+    },
   "dependencies": {
   
     
@@ -19,6 +27,13 @@
   
     
   "mongoose": "^7.3.0"
+  
+  },
+  
+  "devDependencies": {
+  
+    
+  "nodemon": "^2.0.22"
   
   }
 }
