@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: my-pipeline-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: jx
+        image: jenkinsxio/jx:latest
+        command:
+        - /bin/sh
+        - -c
+        - jx step create pr
