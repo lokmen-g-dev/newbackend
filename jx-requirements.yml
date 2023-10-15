@@ -1,0 +1,61 @@
+gitOps: true
+gitOpsWebhook: true
+
+environments:
+  - key: dev
+    owner: lokmen-g-dev
+    repository: newbackend
+    remoteCluster: false
+    promotion:
+      auto: true
+      order:
+        - development
+        - staging
+        - production
+
+repositories:
+  - name: newbackend
+    url: https://github.com/lokmen-g-dev/newbackend.git
+
+vault:
+  enabled: true
+
+ingress:
+  domain: minikube.local
+
+dockerRegistry: "docker.io"
+
+cloudProvider: minikube
+kaniko: true
+
+pipelines:
+  release:
+    pipelineConfig:
+      id: release
+      name: Release
+      type: release
+      agent:
+        image: gcr.io/jenkinsxio/builder-nodejs:12
+      stages:
+        - stage:
+          name: test
+          steps:
+            - step:
+              name: test
+              command: npm
+              args:
+                - test
+        - stage:
+          name: build
+          steps:
+            - step:
+              name: build
+              command: npm
+              args:
+                - install
+            - step:
+              name: build
+              command: npm
+              args:
+                - run
+                - build
