@@ -1,0 +1,9 @@
+kind: Job
+metadata:
+  name: jx-boot-job
+spec:
+  steps:
+    - name: step1
+      command: ["echo", "This is step 1"]
+    - name: step2
+      command: ["echo", "This is step 2"]
